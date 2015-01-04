@@ -1,0 +1,4 @@
+libAIRegistry
+=============
+
+Registry library
