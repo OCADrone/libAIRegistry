@@ -8,6 +8,9 @@ client::client()
 	init();
 }
 
+/**
+ * @param _hsock Server socket.
+ */
 client::client(KSocket *_hsock)
 {
 	init();
@@ -15,6 +18,10 @@ client::client(KSocket *_hsock)
 	selfsock = false;
 }
 
+/**
+ * @param _address Server address.
+ * @param _port Server port.
+ */
 client::client(const string &_address, int _port)
 {
 	init();
@@ -40,6 +47,9 @@ client::~client()
 	reset();
 }
 
+/**
+ * @param _hsock Server socket.
+ */
 void 	client::set_server(KSocket *_hsock)
 {
 	if (hsock && selfsock)
@@ -47,6 +57,10 @@ void 	client::set_server(KSocket *_hsock)
 	hsock = _hsock;
 }
 
+/**
+ * @param _address Server address.
+ * @param _port Server port.
+ */
 void 	client::set_server(const string &_address, int _port)
 {
 	if (!hsock)
@@ -56,6 +70,9 @@ void 	client::set_server(const string &_address, int _port)
 	hsock->set_port(_port);
 }
 
+/**
+ * @param _address Server address.
+ */
 void 	client::set_address(const string &_address)
 {
 	if (!hsock)
@@ -64,6 +81,9 @@ void 	client::set_address(const string &_address)
 	hsock->set_address(_address);
 }
 
+/**
+ * @param _port Server port.
+ */
 void 	client::set_port(int _port)
 {
 	if (!hsock)
@@ -93,11 +113,20 @@ void 	client::disconnect()
 		throw KError("AIRegistry::client::disconnect", "socket not initialized");
 }
 
+/**
+ * @param _cmd Command to send.
+ * @param _path Path to operate on.
+ * @param _data Data to write / option.
+ */
 const string 	&client::query(enum commands _cmd, const string &_path,
 							   const string &_data)
 {
 	if (hsock)
 	{
+		// Clear answer and request buffer
+		cans.flush();
+		creq.flush();
+
 		try
 		{
 			creq.set(_cmd, _path, _data);
@@ -111,16 +140,24 @@ const string 	&client::query(enum commands _cmd, const string &_path,
 
 		catch (const KError &error)
 		{
-			//error->dump();
+			//error.dump();
 			disconnect();
 		}
 
 	}
 	else
-		throw KError("Client::query()", "connection is not configured");
+		throw KError("Client::query()", "connection not etablished");
 
-	cans.flush();
-	creq.flush();
+	return result;
+}
+
+bool 	client::get_state()
+{
+	return cans.get_state();
+}
+
+const string &client::get_data()
+{
 	return result;
 }
 

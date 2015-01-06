@@ -16,36 +16,42 @@ namespace AIRegistry
 {
 	/**
 	 * Connect to a registry server.
-	 * Contains a server socket.
+	 * Contains necessary objects (request, answer, socket, ...) to
+	 * handle conection by itself.
 	 */
 	class 	client
 	{
 	public:
 		client();
-		client(KSocket *);							/**< Build with existing server link. */
-		client(const string &, int = 0);			/**< Build with server link. */
-		void reset();								/**< Reset initial state. */
-		~client();									/**< Destructor. */
+		client(KSocket *);										/**< Build with existing socket. */
+		client(const string &, int = 0);			/**< Build with socket parameters. */
+		void reset();													/**< Reset initial state. */
+		~client();														/**< Destructor. */
 
-		void 	set_server(KSocket *);				/**< Set server from a socket. */
+		// Setting
+		void 	set_server(KSocket *);					/**< Set server from a socket. */
 		void 	set_server(const string &,
-						   int = 0);				/**< Set server link. */
+						   			 int = 0);						/**< Set server connection. */
 		void 	set_address(const string &);		/**< Set server address. */
-		void 	set_port(int);						/**< Set server port. */
-		void 	connect();							/**< Connect to server. */
-		void 	disconnect();						/**< Close server link. */
+		void 	set_port(int);									/**< Set server port. */
+
+		// Connection
+		void 	connect();														/**< Connect to server. */
+		void 	disconnect();													/**< Close server link. */
 		const string &query(enum commands,
-					  const string &,
-					  const string & = "");			/**< Send a command & return result. */
+					  						const string &,
+					  						const string & = "");		/**< Send a command. */
+		bool 				 get_state();										/**< Return last query state. */
+		const string &get_data();										/**< Return last query result. */
 
 	private:
 		void 			init();						/**< Initialize object. */
 
-		KSocket 		*hsock;						/**< Server (Host) link. */
-		bool 			selfsock;					/**< true if socket is self managed. */
+		KSocket 		*hsock;					/**< Server (Host) link. */
+		bool 				selfsock;				/**< true if socket is self managed. */
 		request 		creq;						/**< Last send request. */
 		answer 			cans;						/**< Last received answer. */
-		string 			result;
+		string 			result;					/**< Recived result. */
 	};
 }
 

@@ -95,7 +95,7 @@ bool 	answer::send()
 		}
 		catch (const KError &error)
 		{
-			//error->dump();
+			//error.dump();
 			return false;
 		}
 		return true;
@@ -126,7 +126,7 @@ bool 	answer::receive()
 		}
 		catch (const KError &error)
 		{
-			//error->dump();
+			//error.dump();
 			return false;
 		}
 		return true;

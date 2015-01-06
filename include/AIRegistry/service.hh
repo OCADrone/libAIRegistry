@@ -10,15 +10,15 @@ namespace AIRegistry
 	class 	server
 	{
 	public:
-		server();
-		void init();
-		void reset();
-		~server();
+		server();									/**< Constructor. */
+		void init();							/**< Initialize. */
+		void reset();							/**< Reset initial state. */
+		~server();								/**< Destructor. */
 
 	private:
-		KTree<string>	regtree;
-		KSocket 		lsock;
-		KSocket 		*csock;
+		KTree<string>	regtree;		/**< Database. */
+		KSocket 			lsock;			/**< Locket (server) socket. */
+		KSocket 			*csock;			/**< Clients socket. */
 
 	};
 }

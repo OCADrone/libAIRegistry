@@ -18,10 +18,6 @@ request::request(const request &_ref)
 	if (&_ref != this)
 	{
 		*this = _ref;
-		/*this->sock 		= _ref.sock;
-		this->command 	= _ref.command;
-		this->path 		= _ref.path;
-		this->data 		= _ref.data;*/
 	}
 }
 
@@ -34,7 +30,7 @@ request	&request::operator=(const request &_ref)
 	{
 		reset();
 		this->sock 		= _ref.sock;
-		this->command 	= _ref.command;
+		this->command = _ref.command;
 		this->path 		= _ref.path;
 		this->data 		= _ref.data;
 	}
@@ -86,8 +82,8 @@ void 			request::flush()
 void 	request::set(enum commands _cmd, const string &_path, const string &_data)
 {
 	command = _cmd;
-	path 	= _path;
-	data 	= _data;
+	path 	  = _path;
+	data 	  = _data;
 }
 
 bool 	request::send()

@@ -5,15 +5,17 @@ namespace AIRegistry
 {
 	/**
 	 * Registry client <-> server commands.
-	 * Faster and safer than command-as-string.
 	 */
 	enum commands
 	{
-		CTRL,		/**< Test connection. */
-		READ,		/**< Get key value. */
-		WRITE,		/**< Update key value. */
-		MKNODE,		/**< Insert a node. */
-		CHECK		/**< Check if a key exists. */
+		CTRL,					/**< Test connection. */
+		READ,					/**< Get key value. */
+		WRITE,				/**< Update key value. */
+		MKNODE,				/**< Insert a node. */
+		MKLEAF,				/**< Insert a leaf. */
+		ISNODE,				/**< Check if a node exists. */
+		ISLEAF,				/**< Check if a leaf exists. */
+		SIZE					/**< Return path size. */
 	};
 }
 
