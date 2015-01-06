@@ -100,7 +100,7 @@ bool 	request::send()
 		}
 		catch (const KError &error)
 		{
-			error.dump();
+			//error.dump();
 			return false;
 		}
 		return true;
@@ -142,7 +142,7 @@ bool 	request::receive()
 		}
 		catch (const KError &error)
 		{
-			error.dump();
+			//error.dump();
 			return false;
 		}
 		return true;
