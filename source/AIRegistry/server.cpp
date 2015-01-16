@@ -178,7 +178,7 @@ void 	server::handle()
 		 */
 		case WRITE:
 			//reglock->lock();
-			regtree->insert(creq.get_path(), creq.get_data());
+			regtree->set(creq.get_path(), creq.get_data());
 			//reglock->unlock();
 			cans.set(true);
 			break;
